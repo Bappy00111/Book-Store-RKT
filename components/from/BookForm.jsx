@@ -1,7 +1,9 @@
 "use client";
 import { useState } from "react";
+import { useAddBookMutation } from "@/redux/features/boolSliceApi"; // RTK Query hook
 
-const BookForm = ({ onSubmit, defaultValues = {}, submitText }) => {
+const BookForm = ({ defaultValues = {}, submitText }) => {
+    
   const [formData, setFormData] = useState({
     name: defaultValues.name || "",
     author: defaultValues.author || "",
@@ -11,6 +13,10 @@ const BookForm = ({ onSubmit, defaultValues = {}, submitText }) => {
     featured: defaultValues.featured || false,
   });
 
+  // RTK Query mutation hook
+  const [addBook, { isLoading, isSuccess, isError }] = useAddBookMutation();
+
+  // handle input change
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -19,9 +25,25 @@ const BookForm = ({ onSubmit, defaultValues = {}, submitText }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  // handle form submit
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    try {
+      await addBook(formData).unwrap();
+      alert("✅ Book Added Successfully!");
+      // reset form
+      setFormData({
+        name: "",
+        author: "",
+        thumbnail: "",
+        price: "",
+        rating: "",
+        featured: false,
+      });
+    } catch (error) {
+      alert("❌ Failed to add book!");
+      console.error(error);
+    }
   };
 
   return (
@@ -115,9 +137,18 @@ const BookForm = ({ onSubmit, defaultValues = {}, submitText }) => {
       </div>
 
       {/* Submit Button */}
-      <button type="submit" className="submit" id="lws-submit">
-        {submitText}
+      <button
+        type="submit"
+        className="submit"
+        id="lws-submit"
+        disabled={isLoading}
+      >
+        {isLoading ? "Adding..." : submitText}
       </button>
+
+      {/* Success/Error Messages */}
+      {isSuccess && <p className="text-green-600">Book added successfully!</p>}
+      {isError && <p className="text-red-600">Failed to add book!</p>}
     </form>
   );
 };

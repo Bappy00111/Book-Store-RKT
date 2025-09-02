@@ -2,10 +2,7 @@
 import BookForm from "@/components/from/BookForm";
 
 export default function AddBookPage() {
-  const handleAddBook = (bookData) => {
-    console.log("New Book Added:", bookData);
-    // এখানে API কল করে ডেটা পাঠানো হবে
-  };
+
 
   return (
     <>
@@ -13,7 +10,7 @@ export default function AddBookPage() {
         <div className="container">
           <div className="p-8 overflow-hidden bg-white shadow-cardShadow rounded-md max-w-xl mx-auto">
             <h4 className="mb-8 text-xl font-bold text-center">Add New Book</h4>
-            <BookForm onSubmit={handleAddBook} submitText="Add Book" />
+            <BookForm  submitText="Edit Book" />
           </div>
         </div>
       </main>
