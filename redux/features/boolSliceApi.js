@@ -25,9 +25,29 @@ export const bookSliceApi = createApi({
       }),
       invalidatesTags: ["books"],
     }),
+
+    // edit books
+    editBook: builder.mutation({
+      query: ({ id, book }) => ({
+        url: `/books/${id}`,
+        method: "PATCH",
+        body: book,
+      }),
+      invalidatesTags: ["books"],
+    }),
+
+    // delet method
+    deleteBook: builder.mutation({
+      query: (id) => ({
+        url: `/books/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["books"],
+    }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetBookQuery, useAddBookMutation } = bookSliceApi;
+export const { useGetBookQuery, useAddBookMutation, useEditBookMutation ,useDeleteBookMutation} =
+  bookSliceApi;

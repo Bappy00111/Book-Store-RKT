@@ -1,10 +1,26 @@
 
+import { useDeleteBookMutation } from "@/redux/features/boolSliceApi";
 import Image from "next/image";
 import Link from "next/link";
 
 const BookCard = ({ book }) => {
   // destructure book props
   const { id, name, author, thumbnail, price, rating, featured } = book;
+
+  const [deleteBook, { isError, isLoading, isSuccess }] = useDeleteBookMutation()
+
+  const handleDelete = async () => {
+    if (confirm(`Are you sure you want to delete "${name}"?`)) {
+      try {
+        await deleteBook(id).unwrap(); // RTK Query delete call
+        alert(`✅ Book "${name}" deleted successfully!`);
+      } catch (error) {
+        console.error(error);
+        alert(`❌ Failed to delete book!`);
+      }
+    }
+  };
+
 
   return (
     <div className="book-card">
@@ -21,7 +37,7 @@ const BookCard = ({ book }) => {
         {/* Featured Badge & Action Buttons */}
         <div className="flex items-center justify-between">
           {featured && <span className="lws-badge">Featured</span>}
-          
+
           <div className="text-gray-500 space-x-2 flex">
             {/* Edit Button */}
             <Link href={`/editbook/${id}`}>
@@ -29,8 +45,12 @@ const BookCard = ({ book }) => {
             </Link>
 
             {/* Delete Button */}
-            <button className="lws-deleteBook" onClick={() => console.log("Delete book", id)}>
-              🗑️
+            <button
+              className="lws-deleteBook"
+              onClick={handleDelete}
+              disabled={isLoading} // Loading হলে disable
+            >
+              {isLoading ? "Deleting..." : "🗑️"}
             </button>
           </div>
         </div>
@@ -61,6 +81,8 @@ const BookCard = ({ book }) => {
           {/* Price */}
           <p className="lws-price">BDT {price}</p>
         </div>
+        {isSuccess && <p className="text-green-600">Book deleted successfully!</p>}
+        {isError && <p className="text-red-600">Failed to delete book!</p>}
       </div>
     </div>
   );

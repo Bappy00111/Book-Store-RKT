@@ -1,7 +1,8 @@
-"use client";
+
 import BookForm from "@/components/from/BookForm";
 
 export default function AddBookPage() {
+    
   return (
     <main className="py-6 2xl:px-6">
       <div className="container">
