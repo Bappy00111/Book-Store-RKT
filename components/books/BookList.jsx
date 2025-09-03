@@ -1,10 +1,8 @@
-"use client";
-import { useGetBookQuery } from "@/redux/features/boolSliceApi";
+
 import BookCard from "./BookCard";
 
-const BookList = () => {
-  const { data: books, isError, isLoading, isSuccess } = useGetBookQuery();
-  console.log("Fetched books:", books);
+const BookList = ({ books, isError, isLoading, isSuccess }) => {
+
 
   // Loading state handle
   if (isLoading) {

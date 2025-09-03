@@ -3,7 +3,7 @@
 // import { useAddBookMutation } from "@/redux/features/boolSliceApi"; // RTK Query hook
 
 // const BookForm = ({ defaultValues = {}, submitText }) => {
-    
+
 //   const [formData, setFormData] = useState({
 //     name: defaultValues.name || "",
 //     author: defaultValues.author || "",
@@ -161,7 +161,7 @@ import { useState, useEffect } from "react";
 import {
   useAddBookMutation,
   useEditBookMutation,
-} from "@/redux/features/boolSliceApi";
+} from "@/redux/features/bookSliceApi";
 
 const BookForm = ({ defaultValues = {}, submitText, bookId }) => {
   const [formData, setFormData] = useState({

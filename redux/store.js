@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { bookSliceApi } from "./features/boolSliceApi";
+import { bookSliceApi } from "./features/bookSliceApi";
 
 export const store = configureStore({
   reducer: {

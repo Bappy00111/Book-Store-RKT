@@ -20,7 +20,7 @@
 "use client";
 import BookForm from "@/components/from/BookForm";
 import { useParams } from "next/navigation";
-import { useGetBookQuery } from "@/redux/features/boolSliceApi";
+import { useGetBookQuery } from "@/redux/features/bookSliceApi";
 import { useMemo } from "react";
 
 export default function EditBookPage() {

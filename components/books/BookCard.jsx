@@ -1,5 +1,5 @@
 
-import { useDeleteBookMutation } from "@/redux/features/boolSliceApi";
+import { useDeleteBookMutation } from "@/redux/features/bookSliceApi";
 import Image from "next/image";
 import Link from "next/link";
 
